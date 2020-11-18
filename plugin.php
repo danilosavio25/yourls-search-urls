@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Search URLs by Title
-Plugin URI: http://your-own-domain-here.com/articles/hey-test-my-sample-plugin/
+Plugin URI: https://github.com/danilosavio25/yourls-search-urls
 Description: Search existent URLs using title as parameter
 Version: 1.0
 Author: Danilo Savio
-Author URI: 
+Author URI:  https://github.com/danilosavio25/yourls-search-urls
 */
 
 function dss_search_urls_by_title(){
