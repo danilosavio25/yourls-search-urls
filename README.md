@@ -3,7 +3,7 @@ Plugin for YOURLS: **Search URLs by Title**
 
 YOURLS plugin to add additional commands to the YOURLS API. 
 
-- search_urls_by_title - a function to search all URLs using the title field as search parameter
+- search_urls_by_title - a function to search all URLs using the title field as search parameter with pagination
 
 How to install this plugin
 ==========================
@@ -26,10 +26,8 @@ The search_urls_by_title search all URLs using the title field as search paramet
 - page | optional | Numeric. Page number. (default = 1)
 - rows | optional | Numeric. The numer of rows per page (default = 10)
 
-Example URL (HTTP METHOD: GET)
+## Example URL (HTTP METHOD: GET)
 
-`
-http://yourls.localhost/yourls-api.php?username=yourusername&password=yourpasswrod&action=search_urls_by_title&format=json&title=urltitle&page=1&rows=10
+http://yourls.server/yourls-api.php?username=yourusername&password=yourpasswrod&action=search_urls_by_title&format=json&title=urltitle&page=1&rows=10
 
-`
 
