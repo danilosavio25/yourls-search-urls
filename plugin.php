@@ -2,7 +2,7 @@
 /*
 Plugin Name: Search URLs by Title
 Plugin URI: https://github.com/danilosavio25/yourls-search-urls
-Description: Search existent URLs using title as parameter
+Description: Search existent URLs using title as parameter with pagination
 Version: 1.0
 Author: Danilo Savio
 Author URI:  https://github.com/danilosavio25/yourls-search-urls
@@ -52,7 +52,6 @@ function dss_search_urls_by_title(){
     $title = $_REQUEST['title'];
 
 	$table_url = YOURLS_DB_TABLE_URL;
-	$title  = yourls_sanitize_keyword( $title );
 
     $sqlQuery = "SELECT * FROM `$table_url` WHERE `title` = :title LIMIT $pagination,$rows";
 
