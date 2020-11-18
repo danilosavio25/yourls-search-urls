@@ -1,7 +1,7 @@
 Plugin for YOURLS: **Search URLs by Title**
 ===================
 
-YOURLS plugin to add additional commands to the YOURLS API.
+YOURLS plugin to add additional commands to the YOURLS API. 
 
 - search_urls_by_title - a function to search all URLs using the title field as search parameter
 
