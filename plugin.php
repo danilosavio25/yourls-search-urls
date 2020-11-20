@@ -2,15 +2,15 @@
 /*
 Plugin Name: Search URLs by Title
 Plugin URI: https://github.com/danilosavio25/yourls-search-urls
-Description: Search existent URLs using title as parameter with pagination
-Version: 1.0
+Description: Search existent URLs using title as parameter
+Version: 1.1
 Author: Danilo Savio
 Author URI:  https://github.com/danilosavio25/yourls-search-urls
 */
 
 function dss_search_urls_by_title(){
 
-
+     // VALIDATE TITLE PARAMETER
     if( !isset( $_REQUEST['title'] ) ) {
         return array(
 			'statusCode' => 400,
@@ -19,10 +19,10 @@ function dss_search_urls_by_title(){
 		);	
     }
 
-
     $page = 0;
     $rows = 10;
-
+    
+    // VALIDATE PAGE PARAMETER
     if(isset( $_REQUEST['page'] )){
         if(!is_numeric($_REQUEST['page'])){
             return array(
@@ -34,6 +34,7 @@ function dss_search_urls_by_title(){
         $page = $_REQUEST['page'];
     }
 
+     // VALIDATE ROWS PARAMETER
     if(isset( $_REQUEST['rows'] )){
         if(!is_numeric($_REQUEST['rows'])){
             return array(
@@ -45,6 +46,30 @@ function dss_search_urls_by_title(){
         $rows = $_REQUEST['rows'];
     }
 
+   
+    $queryType = 'equals';
+
+    // VALIDATE QUERY_TYPE PARAMETER
+    if(isset( $_REQUEST['query_type'] )){
+        if(!is_string($_REQUEST['query_type'])){
+            return array(
+                'statusCode' => 400,
+                'simple'     => "Parameter query_type must be an String value",
+                'message'    => 'error: Parameter query_type must be an String value',
+            );	
+        }
+
+        if(strtolower($_REQUEST['query_type']) != 'equals' && strtolower($_REQUEST['query_type']) != 'like'){
+            return array(
+                'statusCode' => 400,
+                'simple'     => "Parameter query_type must be 'equals' or 'like'",
+                'message'    => "error: Parameter query_type must be 'equals' or 'like'",
+            );	
+        }
+        $queryType = $_REQUEST['query_type'];
+    }
+
+
     $pagination = calc_pagination($page, $rows);
 
     global $ydb;
@@ -53,9 +78,16 @@ function dss_search_urls_by_title(){
 
 	$table_url = YOURLS_DB_TABLE_URL;
 
-    $sqlQuery = "SELECT * FROM `$table_url` WHERE `title` = :title LIMIT $pagination,$rows";
+    $title = $title;
+    //$sqlQuery = "SELECT * FROM `$table_url` WHERE `title` = :title LIMIT $pagination,$rows";
 
-    $queryResult = $ydb->fetchObjects($sqlQuery, array('title' => $title));
+    if(strtolower($queryType) == 'like'){
+        $sqlQuery = "SELECT * FROM `$table_url` WHERE `title` LIKE :title LIMIT $pagination,$rows";
+        $queryResult = $ydb->fetchObjects($sqlQuery, array('title' => "%$title%"));
+    }else{
+        $sqlQuery = "SELECT * FROM `$table_url` WHERE `title` = :title LIMIT $pagination,$rows";
+        $queryResult = $ydb->fetchObjects($sqlQuery, array('title' => $title));
+    }
     
     
     $return = [ 

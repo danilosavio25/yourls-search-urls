@@ -25,9 +25,10 @@ The search_urls_by_title search all URLs using the title field as search paramet
 - format | optional | "jsonp", "json", "xml" or "simple" 
 - page | optional | Numeric. Page number. (default = 1)
 - rows | optional | Numeric. The numer of rows per page (default = 10)
+- query_type | optional | "like" or "equals" (default = equals) | Use equals to use title param literal or like to search every url containing the value of title
 
 ## Example URL (HTTP METHOD: GET)
 
-http://yourls.server/yourls-api.php?username=yourusername&password=yourpasswrod&action=search_urls_by_title&format=json&title=urltitle&page=1&rows=10
+http://yourls.server/yourls-api.php?username=yourusername&password=yourpasswrod&action=search_urls_by_title&format=json&title=urltitle&page=1&rows=10&query_type=equals
 
 
